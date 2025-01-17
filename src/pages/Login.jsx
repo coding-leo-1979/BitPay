@@ -21,7 +21,8 @@ function Login() {
                     const decryptedPrivateKey = CryptoJS.AES.decrypt(wallet.encryptedPrivateKey, pin).toString(CryptoJS.enc.Utf8);
 
                     // 로그인 성공 시 localStorage에 저장하고 홈으로 이동
-                    localStorage.setItem('wallet', decryptedPublicKey);
+                    localStorage.setItem('publicKey', decryptedPublicKey);
+                    localStorage.setItem('privateKey', decryptedPrivateKey); 
                     localStorage.setItem('pin', pin);
                     navigate('/home');
                 } catch (error) {

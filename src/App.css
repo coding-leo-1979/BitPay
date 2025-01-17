@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  max-width: 480px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -11,6 +11,16 @@
   will-change: filter;
   transition: filter 300ms;
   filter: drop-shadow(0 0 2em #ffffff);
+}
+
+.logoutLogo {
+  height: 1.5em;
+  cursor: pointer;
+}
+
+.copyLogo {
+  height: 1.5em;
+  cursor: pointer;
 }
 
 .card {

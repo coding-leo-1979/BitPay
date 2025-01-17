@@ -12,8 +12,8 @@ const Index = () => {
       </div>
       <h1>Bit Pay</h1>
       <div className="card">
-        <button onClick={() => navigate('/login')}>Log In</button>
-        <button onClick={() => navigate('/signup')}>Sign Up</button>
+        <button className="leftButton" onClick={() => navigate('/login')}>Log In</button>
+        <button className="rightButton" onClick={() => navigate('/signup')}>Sign Up</button>
       </div>
     </div>
   );

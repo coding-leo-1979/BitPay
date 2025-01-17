@@ -10,7 +10,7 @@ import Signup from './pages/Signup';
 
 function App() {
   const isLoggedIn = () => {
-    return localStorage.getItem('wallet') && localStorage.getItem('pin');
+    return localStorage.getItem('publicKey') && localStorage.getItem('pin');
   };
 
   return (

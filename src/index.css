@@ -6,7 +6,7 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -28,6 +28,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  margin: 0 auto;
+  border: 1px black;
 }
 
 h1 {
@@ -43,22 +45,38 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #747bff;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  background-color: black;
+  color: white;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.leftButton {
+  width: 140px;
+  margin-left: 0px;
+  margin-right: 10px;
+}
+
+.rightButton {
+  width: 140px;
+}
+
+.wholeButton {
+  width: 300px;
+  margin-left: 0px;
+}
+
 input {
   border-radius: 8px;
   border: 2px solid;
-  width: 250px;
+  width: 300px;
   margin: 10px;
   padding: 0.6em 1.2em;
   font-size: 1em;
@@ -77,6 +95,6 @@ input {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: lightgray;
   }
 }

@@ -1,0 +1,76 @@
+/* Balance */
+.txn_balance {
+    text-align: left;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.leftButton {
+    width: 140px;
+    margin-left: 0px;
+    margin-right: 10px;
+}
+
+.rightButton {
+    width: 140px;
+}
+
+.wholeButton {
+    width: 300px;
+    margin-left: 0px;
+}
+
+/* Transaction List */
+ul {
+    width: 300px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+li {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    position: relative;
+}
+
+/* Date: Top-Left */
+.txn_time {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    font-size: 0.8rem;
+    color: #555;
+}
+
+/* Client: Bottom-Left */
+.txn_client {
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+    font-size: 1rem;
+    color: #000;
+    font-weight: bold;
+
+    display: inline-block;
+    max-width: 10ch; /* 최대 8글자(문자 폭 기준) */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 숨긴 부분에 ... 표시 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+}
+
+/* Amount: Bottom-Right */
+.txn_amount {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+}
