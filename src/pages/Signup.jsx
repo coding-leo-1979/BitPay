@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
 
-import { API_CREATE_WALLET } from '../api';
+const API_CREATE_WALLET = import.meta.env.VITE_API_URL + "/signup";
 
 function Signup() {
     const [pin, setPin] = useState('');
