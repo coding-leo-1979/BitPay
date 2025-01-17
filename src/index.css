@@ -57,7 +57,7 @@ button:focus-visible {
 
 input {
   border-radius: 8px;
-  border: 1px solid;
+  border: 2px solid;
   width: 250px;
   margin: 10px;
   padding: 0.6em 1.2em;

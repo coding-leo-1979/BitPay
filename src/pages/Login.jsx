@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CryptoJS from 'crypto-js';  // CryptoJS import
-import walletLogo from '../assets/coin.png';
+import CryptoJS from 'crypto-js';
 import '../App.css';
 
 function Login() {
@@ -38,6 +37,7 @@ function Login() {
     return (
         <div>
             <h1>Bit Pay</h1>
+            <h3>Log In</h3>
             <div>
                 <input type="file" accept=".json" onChange={ handleFileChange } />
                 <input
