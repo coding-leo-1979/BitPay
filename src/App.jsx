@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Index from './pages/Index';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Wallet from './pages/Wallet';
 
 function App() {
   const isLoggedIn = () => {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/wallet" element={<Wallet />} />
       </Routes>
     </Router>
   );

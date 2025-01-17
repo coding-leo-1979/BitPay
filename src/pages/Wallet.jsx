@@ -5,9 +5,9 @@ import '../styles/Home.css';
 
 import logoutLogo from '../assets/logout.png';
 import copyLogo from '../assets/copy.png';
-const API_HOME = import.meta.env.VITE_API_URL + "/home";
+const API_WALLET = import.meta.env.VITE_API_URL + "/wallet";
 
-function Home({ publicKey }) {
+function Wallet({ publicKey }) {
     const [balance, setBalance] = useState(0);
     const [transactions, setTransactions] = useState([]);
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ function Home({ publicKey }) {
 
     const fetchWalletData = async () => {
         try {
-            const response = await axios.post(API_HOME, { myAddress: publicKey });
+            const response = await axios.post(API_WALLET, { myAddress: publicKey });
             setBalance(response.data.balance);
             setTransactions(response.data.transaction);
         } catch (error) {
@@ -65,12 +65,6 @@ function Home({ publicKey }) {
                 {new Intl.NumberFormat().format(balance)} coins
             </p>
 
-
-            <div>
-                <button className="leftButton" onClick={() => navigate('/home')}>My QR</button>
-                <button className="rightButton" onClick={() => navigate('/send')}>Send</button>
-            </div>
-
             <ul>
                 {transactions.map((tx, index) => (
                     <li key={index}>
@@ -99,12 +93,8 @@ function Home({ publicKey }) {
                     </li>
                 ))}
             </ul>
-
-            <div>
-                <button className="wholeButton" onClick={() => navigate('/wallet')}>More</button>
-            </div>
         </div>
     );
 }
 
-export default Home;
+export default Wallet;
