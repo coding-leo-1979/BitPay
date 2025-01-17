@@ -88,18 +88,18 @@ const Send = () => {
     <div>
       <h1>Bit Pay</h1>
       <h3>Send Coins</h3>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <img
+          src={QRLogo}
+          alt="QR Icon"
+          style={{ width: "40px", height: "40px", cursor: "pointer" }}
+          onClick={() => setIsScanning(true)}
+        />
+      <div>
         <input
           type="text"
           value={sendAddress}
           onChange={(e) => setSendAddress(e.target.value)}
           placeholder="Wallet Address"
-        />
-        <img
-          src={QRLogo}
-          alt="QR Icon"
-          style={{ width: "40px", height: "40px", cursor: "pointer" }}
-          onClick={() => setIsScanning(true)}
         />
       </div>
 
