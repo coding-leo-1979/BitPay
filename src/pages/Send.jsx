@@ -12,6 +12,7 @@ const Send = () => {
   const [amount, setAmount] = useState("");
   const [isScanning, setIsScanning] = useState(false);
   const [scanCompleted, setScanCompleted] = useState(false); // 스캔 완료 상태 추가
+  const navigate = useNavigate();
 
   const myWallet = localStorage.getItem("publicKey");
   const privateKey = localStorage.getItem("privateKey");
