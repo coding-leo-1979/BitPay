@@ -1,24 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/coin.png'
-import './App.css'
+import { useEffect } from 'react';
+import { Navigate, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import './App.css';
+
+import Home from './pages/Home';
+import Index from './pages/Index';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 function App() {
+  const isLoggedIn = () => {
+    return localStorage.getItem('wallet') && localStorage.getItem('pin');
+  };
+
   return (
-    <>
-      <div>
-        <img src={reactLogo} className="logo react" alt="React logo" />
-      </div>
-      <h1>Bit Pay</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          Log In
-        </button>
-        <button onClick={() => setCount((count) => count + 1)}>
-          Sign Up
-        </button>
-      </div>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={isLoggedIn() ? <Home /> : <Index />}
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
