@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import QRLogo from '../assets/qr.png';
-import { Html5QrcodeScanner } from "html5-qrcode";
+import { Html5Qrcode } from "html5-qrcode";
 
 const API_SEND = import.meta.env.VITE_API_URL + "/send";
 
@@ -62,29 +62,37 @@ const Send = () => {
   useEffect(() => {
     if (isScanning) {
       const isMobile = /Mobi|Android/i.test(navigator.userAgent);  // 모바일 여부 확인
-      const cameraId = isMobile ? "environment" : "user";  // 모바일일 경우 후면 카메라, 아니면 웹캠
+      const cameraId = isMobile ? { facingMode: "environment" } : { facingMode: "user" };  // 모바일일 경우 후면 카메라, 아니면 웹캠
 
-      const newScanner = new Html5QrcodeScanner("qr-scanner", {
-        fps: 10,
-        qrbox: 250,
-        facingMode: cameraId,  // 카메라 선택 모드 설정
-        showStopButton: false,  // Stop 버튼 비활성화
+      const newScanner = new Html5Qrcode("qr-scanner");
+
+      // start 메서드를 통해 직접 카메라를 선택하고 스캔을 시작합니다.
+      newScanner.start(
+        cameraId,
+        {
+          fps: 10,
+          qrbox: 250,
+        },
+        handleScanResult
+      ).catch((err) => {
+        console.error("QR 코드 스캔 오류:", err);
       });
 
-      newScanner.render(handleScanResult);
       setScanner(newScanner);  // scanner 객체 상태에 저장
     }
 
     return () => {
       if (scanner) {
-        scanner.clear();  // 컴포넌트가 언마운트되거나 스캔을 종료할 때 기존 스캐너 종료
+        scanner.stop();  // 스캔 종료
+        scanner.clear();  // 카메라 종료
       }
     };
   }, [isScanning]);
 
   const handleCloseScanner = () => {
     if (scanner) {
-      scanner.clear();  // 카메라 종료 및 스캔 중지
+      scanner.stop();  // 카메라 종료 및 스캔 중지
+      scanner.clear();  // 추가적인 리소스 정리
     }
     setIsScanning(false);  // 스캐너 상태 종료
     setScanCompleted(false);  // 스캔 완료 상태 초기화
@@ -111,12 +119,12 @@ const Send = () => {
       </div>
 
       {isScanning && !scanCompleted && (
-        <div id="qr-scanner" style={{ marginTop: "10px", width: "100%" }}></div>
+        <div id="qr-scanner" style={{ marginTop: "10px", width: "100%", height: "300px" }}></div>
       )}
 
       {isScanning && (
         <button onClick={handleCloseScanner} style={{ marginTop: "10px" }}>
-          Close
+          Stop Scanning
         </button>
       )}
 
