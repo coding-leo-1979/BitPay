@@ -87,7 +87,11 @@ function Wallet({ publicKey }) {
                                         : 'black',
                             }}
                         >
-                            {tx.sender === myWallet ? `-${tx.amount}` : tx.recipient === myWallet ? `+${tx.amount}` : `${tx.amount}`}
+                            {tx.sender === myWallet
+                                ? `-${tx.amount.toLocaleString()}`
+                                : tx.recipient === myWallet
+                                ? `+${tx.amount.toLocaleString()}`
+                                : `${tx.amount.toLocaleString()}`}
                         </div>
 
                     </li>

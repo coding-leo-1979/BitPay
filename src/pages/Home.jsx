@@ -5,6 +5,7 @@ import '../styles/Home.css';
 
 import logoutLogo from '../assets/logout.png';
 import copyLogo from '../assets/copy.png';
+
 const API_HOME = import.meta.env.VITE_API_URL + "/home";
 
 function Home({ publicKey }) {
@@ -16,7 +17,7 @@ function Home({ publicKey }) {
 
     const fetchWalletData = async () => {
         try {
-            const response = await axios.post(API_HOME, { myAddress: publicKey });
+            const response = await axios.post(API_HOME, { myAddress: myWallet });
             setBalance(response.data.balance);
             setTransactions(response.data.transaction);
         } catch (error) {
@@ -67,7 +68,7 @@ function Home({ publicKey }) {
 
 
             <div>
-                <button className="leftButton" onClick={() => navigate('/home')}>My QR</button>
+                <button className="leftButton" onClick={() => navigate('/genQR')}>My QR</button>
                 <button className="rightButton" onClick={() => navigate('/send')}>Send</button>
             </div>
 
@@ -93,8 +94,13 @@ function Home({ publicKey }) {
                                         : 'black',
                             }}
                         >
-                            {tx.sender === myWallet ? `-${tx.amount}` : tx.recipient === myWallet ? `+${tx.amount}` : `${tx.amount}`}
+                            {tx.sender === myWallet
+                                ? `-${tx.amount.toLocaleString()}`
+                                : tx.recipient === myWallet
+                                ? `+${tx.amount.toLocaleString()}`
+                                : `${tx.amount.toLocaleString()}`}
                         </div>
+
 
                     </li>
                 ))}

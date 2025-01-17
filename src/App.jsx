@@ -8,6 +8,8 @@ import Index from './pages/Index';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Wallet from './pages/Wallet';
+import Send from './pages/Send';
+import GenQR from './pages/GenQR';
 
 function App() {
   const isLoggedIn = () => {
@@ -25,6 +27,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<Home />} />
         <Route path="/wallet" element={<Wallet />} />
+        <Route path="/send" element={<Send />} />
+        <Route path="/genQR" element={<GenQR />} />
       </Routes>
     </Router>
   );
