@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { QrReader } from "react-qr-reader";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-
 import QRLogo from '../assets/qr.png';
+import { Html5QrcodeScanner } from "html5-qrcode";
 
 const API_SEND = import.meta.env.VITE_API_URL + "/send";
 
@@ -11,20 +10,19 @@ const Send = () => {
   const [sendAddress, setSendAddress] = useState("");
   const [amount, setAmount] = useState("");
   const [isScanning, setIsScanning] = useState(false);
-  const [scanCompleted, setScanCompleted] = useState(false); // 스캔 완료 상태 추가
+  const [scanCompleted, setScanCompleted] = useState(false);
+  const [scanner, setScanner] = useState(null);  // Scanner 객체 상태 추가
   const navigate = useNavigate();
 
   const myWallet = localStorage.getItem("publicKey");
   const privateKey = localStorage.getItem("privateKey");
 
-  // 숫자 포맷 함수 (세 자리마다 반점 추가)
   const formatNumber = (value) => {
-    const formattedValue = value.replace(/[^\d]/g, ''); // 숫자 외의 문자는 제거
-    if (formattedValue === '') return ''; // 비어 있으면 그냥 리턴
-    return Number(formattedValue).toLocaleString(); // 반점 추가
+    const formattedValue = value.replace(/[^\d]/g, '');
+    if (formattedValue === '') return '';
+    return Number(formattedValue).toLocaleString();
   };
 
-  // 입력값 변경 처리
   const handleChange = (e) => {
     const value = e.target.value;
     setAmount(value);
@@ -52,12 +50,37 @@ const Send = () => {
     }
   };
 
-  // QR 스캔 완료 후 상태 변경
   const handleScanResult = (result) => {
     if (result) {
       setSendAddress(result.text);
-      setScanCompleted(true); // 스캔 완료 상태 설정
-      setIsScanning(false); // 스캔 종료
+      setScanCompleted(true);
+      setIsScanning(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isScanning) {
+      const newScanner = new Html5QrcodeScanner("qr-scanner", {
+        fps: 10,
+        qrbox: 250,
+      });
+
+      newScanner.render(handleScanResult);
+      setScanner(newScanner); // scanner 객체 상태에 저장
+    }
+
+    return () => {
+      // 컴포넌트가 언마운트되거나 스캔을 종료할 때 기존 스캐너 종료
+      if (scanner) {
+        scanner.clear();
+      }
+    };
+  }, [isScanning]);
+
+  const handleCloseScanner = () => {
+    if (scanner) {
+      scanner.clear();  // 카메라 종료 및 스캔 중지
+      setIsScanning(false);  // 스캐너 상태 종료
     }
   };
 
@@ -80,33 +103,24 @@ const Send = () => {
         />
       </div>
 
-      {/* QR 코드 스캔 화면 */}
       {isScanning && !scanCompleted && (
-        <div style={{ marginBottom: "10px" }}>
-          <QrReader
-            onResult={(result, error) => {
-              if (result) {
-                handleScanResult(result); // 스캔 완료 후 처리
-              }
-              if (error) {
-                console.error(error);
-              }
-            }}
-            style={{ width: "100%" }}
-          />
-          <button onClick={() => setIsScanning(false)}>닫기</button>
-        </div>
+        <div id="qr-scanner" style={{ marginTop: "10px", width: "100%", height: "400px" }}></div>
+      )}
+
+      {isScanning && (
+        <button onClick={handleCloseScanner} style={{ marginTop: "10px" }}>
+          닫기
+        </button>
       )}
 
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <input
-          type="tel" // 모바일에서 숫자 키보드만 뜨게 설정
-          value={formatNumber(amount)}  // 포맷된 값 설정
-          onChange={handleChange}  // 입력값 변경 처리
+          type="tel"
+          value={formatNumber(amount)}
+          onChange={handleChange}
           placeholder="Coins"
-          inputMode="numeric"  // 모바일에서 숫자만 입력되도록 설정
+          inputMode="numeric"
         />
-        <div style={{ width: "40px", height: "40px", opacity: 0 }}></div>
       </div>
 
       <button onClick={handleSend}>Send</button>
