@@ -1,9 +1,26 @@
+.logoutLogo {
+    height: 1.5em;
+    cursor: pointer;
+}
+
+.copyLogo {
+    height: 1.5em;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.myWallet {
+    margin: 0px;
+    text-decoration: underline;
+}
+
 /* Balance */
 .txn_balance {
     text-align: left;
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .leftButton {

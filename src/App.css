@@ -13,16 +13,6 @@
   filter: drop-shadow(0 0 2em #ffffff);
 }
 
-.logoutLogo {
-  height: 1.5em;
-  cursor: pointer;
-}
-
-.copyLogo {
-  height: 1.5em;
-  cursor: pointer;
-}
-
 .card {
   padding: 2em;
 }

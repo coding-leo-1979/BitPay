@@ -52,18 +52,14 @@ function Home({ publicKey }) {
 
     return (
         <div>
-            <div>
-                <img src={logoutLogo} onClick={handleLogout}  className="logoutLogo" alt="Logout logo" />
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <p>My Address</p>
-                <p>{myWallet}</p>
+            <div className="myWalletDiv" style={{ display: 'flex', alignItems: 'center' }}>
+                <p className="myWallet">{myWallet}</p>
                 <img src={copyLogo} className="copyLogo" alt="Copy logo" onClick={() => {
                         navigator.clipboard.writeText(myWallet);
                         alert('클립보드에 복사되었습니다.');
                     }}
                 />
+                <img src={logoutLogo} onClick={handleLogout}  className="logoutLogo" alt="Logout logo" style={{ marginLeft: 'auto' }} />
             </div>
 
             <p className="txn_balance">

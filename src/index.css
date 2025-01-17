@@ -58,21 +58,6 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.leftButton {
-  width: 140px;
-  margin-left: 0px;
-  margin-right: 10px;
-}
-
-.rightButton {
-  width: 140px;
-}
-
-.wholeButton {
-  width: 300px;
-  margin-left: 0px;
-}
-
 input {
   border-radius: 8px;
   border: 2px solid;
