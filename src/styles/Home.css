@@ -12,6 +12,10 @@
 .myWallet {
     margin: 0px;
     text-decoration: underline;
+    max-width: 20ch;
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 숨긴 부분에 ... 표시 */
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
 }
 
 /* Balance */

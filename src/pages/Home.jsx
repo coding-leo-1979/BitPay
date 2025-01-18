@@ -5,7 +5,6 @@ import '../styles/Home.css';
 
 import logoutLogo from '../assets/logout.png';
 import copyLogo from '../assets/copy.png';
-
 const API_HOME = import.meta.env.VITE_API_URL + "/home";
 
 function Home({ publicKey }) {
@@ -19,7 +18,7 @@ function Home({ publicKey }) {
         try {
             const response = await axios.post(API_HOME, { myAddress: myWallet });
             setBalance(response.data.balance);
-            setTransactions(response.data.transaction);
+            setTransactions(response.data.transactions);
         } catch (error) {
             console.error('Error fetching wallet data:', error);
         }
@@ -73,38 +72,41 @@ function Home({ publicKey }) {
             </div>
 
             <ul>
-                {transactions.map((tx, index) => (
-                    <li key={index}>
-                        <div className="txn_time">{new Date(tx.time).toLocaleString()}</div>
-                        <div className="txn_client">
-                            {tx.sender === myWallet
-                                ? `${tx.recipient}`
-                                : tx.recipient === myWallet
-                                ? `${tx.sender}`
-                                : 'Null'}
-                        </div>
-                        <div
-                            className="txn_amount"
-                            style={{
-                                color:
-                                    tx.sender === myWallet
-                                        ? 'gray'
-                                        : tx.recipient === myWallet
-                                        ? '#6666ff'
-                                        : 'black',
-                            }}
-                        >
-                            {tx.sender === myWallet
-                                ? `-${tx.amount.toLocaleString()}`
-                                : tx.recipient === myWallet
-                                ? `+${tx.amount.toLocaleString()}`
-                                : `${tx.amount.toLocaleString()}`}
-                        </div>
-
-
-                    </li>
-                ))}
+                {Array.isArray(transactions) && transactions.length > 0 ? (
+                    transactions.map((tx, index) => (
+                        <li key={index}>
+                            <div className="txn_time">{new Date(tx.time*1000).toLocaleString()}</div>
+                            <div className="txn_client">
+                                {tx.sender === myWallet
+                                    ? `${tx.recipient}`
+                                    : tx.recipient === myWallet
+                                    ? `${tx.sender}`
+                                    : 'Error'}
+                            </div>
+                            <div
+                                className="txn_amount"
+                                style={{
+                                    color:
+                                        tx.sender === myWallet
+                                            ? 'gray'
+                                            : tx.recipient === myWallet
+                                            ? '#6666ff'
+                                            : 'black',
+                                }}
+                            >
+                                {tx.sender === myWallet
+                                    ? `-${tx.amount.toLocaleString()}`
+                                    : tx.recipient === myWallet
+                                    ? `+${tx.amount.toLocaleString()}`
+                                    : `${tx.amount.toLocaleString()}`}
+                            </div>
+                        </li>
+                    ))
+                ) : (
+                    <p>No transactions</p>
+                )}
             </ul>
+
 
             <div>
                 <button className="wholeButton" onClick={() => navigate('/wallet')}>More</button>
